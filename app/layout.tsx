@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./components/header";
+import Providers from "@/components/providers";
+import Header from "@/components/header";
+import ProgressBar from "@/components/ui/progress-bar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,10 +15,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        <main className="min-h-[calc(100dvh-65.6px)] w-full">{children}</main>
-      </body>
+      <Providers>
+        <body className={inter.className}>
+          <ProgressBar />
+          <Header />
+          <main className="min-h-[calc(100dvh-65.6px)] w-full">{children}</main>
+        </body>
+      </Providers>
     </html>
   );
 }
