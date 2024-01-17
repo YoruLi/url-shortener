@@ -2,14 +2,37 @@ generator client {
     provider = "prisma-client-js"
 }
 
-
-
 datasource db {
-    provider = "mysql"
-        url = env("POSTGRES_PRISMA_URL")
-        directUrl = env("POSTGRES_URL_NON_POOLING")
+    provider  = "postgresql"
+    url       = env("POSTGRES_URL")
+    directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+model User {
+    id        String    @id @default(cuid())
+    name      String?
+    username  String?
+    email     String?
+    createdAt DateTime?
+    image     String?
+    // accounts    Account[]
+    // sessions    Session[]
+    links     link[]
+}
 
+model link {
+    id        Int      @id @default(autoincrement())
+    url       String   @db.Text
+    slug      String   @unique
+    createdAt DateTime @default(now())
+    createdBy User?    @relation(fields: [creatorId], references: [id])
+    creatorId String
+}
 
+model Session {
+    id String @id @default(cuid())
+}
 
+model Account {
+    id String @id @default(cuid())
+}

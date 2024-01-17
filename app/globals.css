@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --primary: 208, 100%, 97%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,12 +17,15 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  body {
+    --app-bg: hsl(0, 0%, 8.5%);
+    color: hsl(var(--primary));
+
+    background: radial-gradient(circle, rgba(21, 21, 22, 0.9) 0, var(--app-bg) 100%);
+  }
+
+  .section {
+    @apply flex flex-col items-center justify-center py-20;
+  }
 }
