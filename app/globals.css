@@ -43,13 +43,18 @@
   scrollbar-color: #000 transparent !important;
 }
 .scrollbar::-webkit-scrollbar {
-  @apply w-[8px] h-[7.5px];
+  @apply w-[6px] h-[7.5px];
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  @apply border-2 border-transparent border-solid bg-current/20 bg-clip-content;
+  @apply border-2 border-transparent border-solid bg-[hsl(0_0%_18%)] bg-clip-content;
 }
 
 .scrollbar::-webkit-scrollbar-track {
   background-color: var(--app-bg);
+}
+
+input:-webkit-autofill {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: white !important;
 }
