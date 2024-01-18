@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "@/components/providers";
 import Header from "@/components/header";
 import ProgressBar from "@/components/ui/progress-bar";
+import { InitialShow } from "@/components/motion";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,14 +15,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <Providers>
-        <body className={inter.className}>
-          <ProgressBar />
-          <Header />
-          <main className="min-h-[calc(100dvh-65.6px)] w-full">{children}</main>
-        </body>
-      </Providers>
-    </html>
+    <>
+      <html lang="en">
+        <Providers>
+          <body
+            className={`${inter.className} min-h-dvh w-full overflow-hidden scrollbar [overflow-y:overlay] [scrollbar-width:none]`}
+          >
+            <ProgressBar />
+            <Header />
+            <InitialShow>
+              <main>{children}</main>
+            </InitialShow>
+          </body>
+        </Providers>
+      </html>
+    </>
   );
 }

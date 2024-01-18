@@ -1,14 +1,9 @@
 "use client";
 import React from "react";
-import NextProgressBar from "nextjs-progressbar";
+import { Next13ProgressBar } from "next13-progressbar";
+
 export default function ProgressBar() {
   return (
-    <NextProgressBar
-      color="#979797"
-      startPosition={0.3}
-      stopDelayMs={200}
-      height={2}
-      showOnShallow={true}
-    />
+    <Next13ProgressBar height="2px" color="#979797" options={{ showSpinner: true }} showOnShallow />
   );
 }

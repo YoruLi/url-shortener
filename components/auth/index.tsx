@@ -3,6 +3,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { GitHub } from "../icons/github";
 import { LinkButton } from "../ui/link-button";
 import { useState } from "react";
+import { SignOut } from "../icons/sign-out";
 
 export const Auth = () => {
   const { status } = useSession();
@@ -44,7 +45,7 @@ export const Auth = () => {
     <>
       <LinkButton onClick={handleSignOut} disabled={loading}>
         {loading ? "Loading..." : "Sign out"}
-        <GitHub className="fill-primary size-4" />
+        <SignOut className="fill-primary size-4" />
       </LinkButton>
     </>
   );
