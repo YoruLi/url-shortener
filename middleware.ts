@@ -83,5 +83,5 @@ export default auth(async (req) => {
 });
 
 export const config = {
-  matcher: ["/dashbard"],
+  matcher: ["/dashboard"],
 };
