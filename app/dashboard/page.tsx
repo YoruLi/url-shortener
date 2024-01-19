@@ -1,16 +1,17 @@
-import { getServerSession } from "next-auth";
 import React from "react";
-import { options } from "../api/auth/options";
+
 import { redirect } from "next/navigation";
 import { LinkButton } from "@/components/ui/link-button";
 import { Add } from "@/components/icons/add";
 import Card from "@/components/ui/card";
 import { getLinks } from "../actions";
+import { auth } from "../api/auth/options";
 
 export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 export default async function Dashboard() {
-  const session = await getServerSession(options);
+  const session = await auth();
 
   if (!session) {
     return redirect("/auth");

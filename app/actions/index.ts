@@ -55,3 +55,13 @@ export const getLinks = async (session: Session) => {
 
   return result;
 };
+
+export const getUserById = async (id: string) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    return user;
+  } catch {
+    return null;
+  }
+};
