@@ -7,6 +7,7 @@ export const options: NextAuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
+
       profile(profile) {
         return {
           id: profile.id.toString(),
@@ -18,8 +19,13 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+
   secret: process.env.NEXTAUTH_SECRET || "",
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: "/auth",
+  },
+
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
