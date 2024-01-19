@@ -7,7 +7,7 @@ export default withAuth(
     const pathname = req.nextUrl?.pathname;
     const { origin } = new URL(req.url);
     const token = req.nextauth.token;
-
+    console.log(token);
     const isAccessingSensitiveRoute = protectedRoutes.some((route) => pathname.startsWith(route));
     const isLoginPage = pathname.startsWith("/auth");
 
