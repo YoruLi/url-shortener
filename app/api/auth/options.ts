@@ -12,15 +12,15 @@ export const {
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
 
-      // profile(profile) {
-      //   return {
-      //     id: profile.id.toString(),
-      //     name: profile.name || profile.login,
-      //     username: profile.login,
-      //     email: profile.email,
-      //     image: profile.avatar_url,
-      //   };
-      // },
+      profile(profile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name || profile.login,
+          username: profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+        };
+      },
     }),
   ],
 
