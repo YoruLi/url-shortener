@@ -1,5 +1,3 @@
-"use client";
-
 import { UpTransition } from "@/components/motion";
 import { LinkButton } from "@/components/ui/link-button";
 
@@ -15,7 +13,7 @@ export default function Home() {
         </h3>
       </UpTransition>
       <UpTransition delay={0.4}>
-        <LinkButton href="/dashboard" className="text-base px-4 hover:scale-105">
+        <LinkButton href={"/dashboard"} className="text-base px-4 hover:scale-105">
           Getting started
         </LinkButton>
       </UpTransition>
