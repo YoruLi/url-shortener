@@ -3,6 +3,8 @@ import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
 import { protectedRoutes } from "./utils/protected-routes";
 import { getToken } from "next-auth/jwt";
 
+import { getUrl } from "./utils/get-url";
+
 export default withAuth(
   async function middleware(req: NextRequestWithAuth) {
     const pathname = req.nextUrl?.pathname;
@@ -16,6 +18,20 @@ export default withAuth(
       if (!token && isAccessingSensitiveRoute) {
         return NextResponse.redirect(new URL("/auth", origin));
       }
+    }
+
+    const slug = req.nextUrl.pathname.split("/").pop();
+
+    const data = await fetch(`${origin}/api/link/${slug}`);
+
+    if (data.status == 404) {
+      return NextResponse.redirect(origin);
+    }
+
+    const res = await data.json();
+    console.log({ url: res });
+    if (res.url) {
+      return NextResponse.redirect(new URL(res.url, origin));
     }
   },
   {
@@ -32,5 +48,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/dashboard/", "/dashboard/:path*"],
+  matcher: ["/dashboard/", "/dashboard/:path*", "/:path*"],
 };
