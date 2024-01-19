@@ -39,13 +39,13 @@ export const createLink = async (values: any) => {
     return;
   }
 
-  // await prisma.link.create({
-  //   data: {
-  //     slug: values.slug,
-  //     url: values.url,
-  //     creatorId: session?.user?.id,
-  //   },
-  // });
+  await prisma.link.create({
+    data: {
+      slug: values.slug,
+      url: values.url,
+      creatorId: session?.user?.id,
+    },
+  });
 
   revalidatePath("/dashboard");
 };

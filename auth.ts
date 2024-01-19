@@ -24,6 +24,7 @@ export const {
       });
     },
   },
+
   callbacks: {
     async session({ session, token }) {
       if (token.sub && session.user) {
