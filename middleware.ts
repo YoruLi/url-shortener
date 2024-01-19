@@ -25,11 +25,11 @@ export default withAuth(
       return NextResponse.redirect(req.nextUrl.origin);
     }
 
-    // const res = await data.json();
+    const res = await data.json();
 
-    // if (res.url) {
-    //   return NextResponse.redirect(new URL(res.url, origin));
-    // }
+    if (res.url) {
+      return NextResponse.redirect(new URL(res.url, origin));
+    }
   },
   {
     pages: {
