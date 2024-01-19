@@ -34,7 +34,11 @@ export const createLink = async (values: any) => {
     },
   });
 
-  console.log(checkSlug);
+  if (checkSlug) {
+    return;
+  }
+
+  console.log({ session });
   await prisma.link.create({
     data: {
       slug: values.slug,
