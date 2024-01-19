@@ -28,6 +28,7 @@ export const deleteLink = async (id: number) => {
 export const createLink = async (values: any) => {
   const session = await auth();
 
+  console.log(session);
   const checkSlug = await prisma.link.findUnique({
     where: {
       slug: values.slug || "",
@@ -38,14 +39,13 @@ export const createLink = async (values: any) => {
     return;
   }
 
-  console.log({ session });
-  await prisma.link.create({
-    data: {
-      slug: values.slug,
-      url: values.url,
-      creatorId: session?.user?.id,
-    },
-  });
+  // await prisma.link.create({
+  //   data: {
+  //     slug: values.slug,
+  //     url: values.url,
+  //     creatorId: session?.user?.id,
+  //   },
+  // });
 
   revalidatePath("/dashboard");
 };
