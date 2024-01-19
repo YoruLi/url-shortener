@@ -6,10 +6,9 @@ import { LinkButton } from "@/components/ui/link-button";
 import { Add } from "@/components/icons/add";
 import Card from "@/components/ui/card";
 import { getLinks } from "../actions";
-import { Span } from "next/dist/trace";
 
 export const dynamic = "force-dynamic";
-export const relavalidate = 0;
+
 export default async function Dashboard() {
   const session = await getServerSession(options);
 

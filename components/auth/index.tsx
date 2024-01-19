@@ -4,18 +4,21 @@ import { GitHub } from "../icons/github";
 import { LinkButton } from "../ui/link-button";
 import { useState } from "react";
 import { SignOut } from "../icons/sign-out";
+import toast from "react-hot-toast";
 
 export const Auth = () => {
   const { status } = useSession();
   const [loading, setLoading] = useState(false);
 
   const handleSignIn = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       await signIn("github", {
         callbackUrl: "/dashboard",
       });
-    } catch (error) {
+      toast.success("Logged in successfuly");
+    } catch (error: any) {
+      toast.error("Something was wrong");
       console.error(error);
     }
   };
