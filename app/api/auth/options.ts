@@ -30,12 +30,21 @@ export const {
     signIn: "/auth",
   },
   callbacks: {
+<<<<<<< HEAD
     session: ({ session, newSession }) => ({
       ...session,
       user: {
         ...session.user,
         id: newSession.id,
         username: newSession.username,
+=======
+    session: ({ session, user }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: user.id,
+        username: user.username,
+>>>>>>> 78a9d64cfeefb679f1ba35e047cdf94009093b10
       },
     }),
   },
