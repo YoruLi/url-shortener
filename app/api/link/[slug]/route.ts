@@ -1,9 +1,8 @@
-import { getServerSession } from "next-auth";
-import { options } from "../../auth/options";
 import { prisma } from "@/utils/db/client";
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { NextApiRequest, NextApiResponse } from "next";
+import { auth } from "@/auth";
 
 type CombineRequest = Request & NextApiRequest;
 type CombineResponse = Response & NextApiResponse;
@@ -37,7 +36,7 @@ export const GET = async (req: CombineRequest, res: CombineResponse) => {
 
 export const PUT = async (req: Request, { params }: { params: { slug: string } }) => {
   const body = await req.json();
-  const session = await getServerSession(options);
+  const session = await auth();
 
   if (!session?.user) {
     return NextResponse.json({ message: "User not logged in." }, { status: 401 });
