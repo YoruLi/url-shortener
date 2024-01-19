@@ -55,11 +55,13 @@ const { auth } = NextAuth(authConfig);
 
 export const apiAuthPrefix = "/auth";
 
-export default auth((req) => {
+export default auth(async (req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
   console.log(isLoggedIn);
-
+  const session = await auth();
+  console.log(session?.user);
+  console.log(isLoggedIn);
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
 
   // if (isApiAuthRoute) {
@@ -80,7 +82,6 @@ export default auth((req) => {
   // return null;
 });
 
-// Optionally, don't invoke Middleware on some paths
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/dashbard"],
 };
