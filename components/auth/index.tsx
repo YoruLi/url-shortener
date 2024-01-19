@@ -42,7 +42,7 @@ export const Auth = () => {
 
   if (status === "unauthenticated") {
     return (
-      <LinkButton onClick={handleSignIn} disabled={loading}>
+      <LinkButton disabled={loading}>
         {loading ? "Loading..." : "Sign in"}
         <GitHub className="fill-primary size-4" />
       </LinkButton>
