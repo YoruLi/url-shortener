@@ -4,6 +4,8 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
+  --background: 0, 0%, 8.5%;
+  --app-bg: 0, 0%, 7.5%;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --primary: 208, 100%, 97%;
@@ -13,6 +15,7 @@
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
+    --app-bg: 0, 0%, 7.5%;
     --background-end-rgb: 0, 0, 0;
   }
 }
@@ -21,7 +24,6 @@
   body {
     --app-bg: hsl(0, 0%, 8.5%);
     color: hsl(var(--primary));
-
     background: radial-gradient(circle, rgba(21, 21, 22, 0.9) 0, var(--app-bg) 100%);
   }
 
