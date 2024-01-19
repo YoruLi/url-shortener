@@ -3,32 +3,28 @@ import { options } from "../../auth/options";
 import { prisma } from "@/utils/db/client";
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
-import { NextApiResponse } from "next";
-import { headers } from "next/headers";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export const GET = async (
-  req: Request,
-
-  { params }: { params: { slug: string } }
-) => {
-  if (!params.slug) {
+export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { slug } = req.query;
+  if (!slug || typeof slug !== "string") {
     return NextResponse.json({ error: "Missing Slug..." }, { status: 400 });
   }
   try {
-    const slug = await prisma.link.findFirst({
+    const data = await prisma.link.findFirst({
       where: {
         slug: {
-          equals: params.slug,
+          equals: slug,
         },
       },
     });
-    console.log(slug);
+
     if (!slug) {
       return NextResponse.json({ error: "Slug not found" }, { status: 404 });
     }
-    const headersList = headers();
-    headersList.set("Cache-Control", "s-maxage=1000000, stale-while-revalidate");
-    return NextResponse.json(slug, { status: 200 });
+
+    res.setHeader("Cache-Control", "s-maxage=1000000, stale-while-revalidate");
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Error getting slug" }, { status: 500 });
   }

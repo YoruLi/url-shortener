@@ -29,7 +29,6 @@ export default withAuth(
     }
 
     const res = await data.json();
-    console.log({ url: res });
     if (res.url) {
       return NextResponse.redirect(new URL(res.url, origin));
     }
