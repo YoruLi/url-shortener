@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session } from "next-auth";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
@@ -26,7 +26,7 @@ export const {
   },
 
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token?: any }): Promise<Session> {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
