@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
 import { protectedRoutes } from "./utils/protected-routes";
-import { getToken } from "next-auth/jwt";
-
-import { getUrl } from "./utils/get-url";
 
 export default withAuth(
   async function middleware(req: NextRequestWithAuth) {
@@ -22,16 +19,17 @@ export default withAuth(
 
     const slug = req.nextUrl.pathname.split("/").pop();
 
-    const data = await fetch(`${origin}/api/link/${slug}`);
+    const data = await fetch(`${origin}/api/link?slug=${slug}`);
 
     if (data.status == 404) {
       return NextResponse.redirect(req.nextUrl.origin);
     }
 
-    const res = await data.json();
-    if (res.url) {
-      return NextResponse.redirect(new URL(res.url, origin));
-    }
+    // const res = await data.json();
+
+    // if (res.url) {
+    //   return NextResponse.redirect(new URL(res.url, origin));
+    // }
   },
   {
     pages: {
