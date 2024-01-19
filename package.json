@@ -19,7 +19,7 @@
     "clsx": "^2.1.0",
     "framer-motion": "^10.18.0",
     "next": "^14.0.4",
-    "next-auth": "^5.0.0-beta.4",
+    "next-auth": "^5.0.0-beta.5",
     "next13-progressbar": "^1.1.3",
     "nextjs-progressbar": "^0.0.16",
     "react": "^18",
