@@ -7,7 +7,7 @@ interface LinkButtonProps extends React.ComponentProps<"button"> {
 }
 
 const LinkButtonStyle = `
-  border dark:border-white/10 border-gray-300
+  border border-white/10 
   rounded-md
   inline-flex justify-center items-center gap-x-2
   py-1 px-2 md:px-4
