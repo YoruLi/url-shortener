@@ -5,6 +5,7 @@ import Providers from "@/components/providers";
 import Header from "@/components/header";
 import ProgressBar from "@/components/ui/progress-bar";
 import { InitialShow } from "@/components/motion";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <InitialShow>
               <main>{children}</main>
             </InitialShow>
+
+            <Toaster
+              position="top-center"
+              toastOptions={{
+                className: "!bg-background border border-white/10 !text-primary",
+              }}
+            />
           </body>
         </Providers>
       </html>
