@@ -1,11 +1,12 @@
 import { getServerSession } from "next-auth";
 import { options } from "../../auth/options";
 import { prisma } from "@/utils/db/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { NextApiRequest, NextApiResponse } from "next";
-
-export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+type CombineRequest = Request & NextApiRequest;
+type CombineResponse = Response & NextApiResponse;
+export const GET = async (req: CombineRequest, res: CombineResponse) => {
   const { slug } = req.query;
   if (!slug || typeof slug !== "string") {
     return NextResponse.json({ error: "Missing Slug..." }, { status: 400 });
