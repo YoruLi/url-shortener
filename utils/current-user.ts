@@ -1,4 +1,4 @@
-import { auth } from "@/app/api/auth/options";
+import { auth } from "@/auth";
 
 export const currentUser = async () => {
   const session = await auth();
