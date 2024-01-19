@@ -83,11 +83,12 @@ export default auth(async (req) => {
   const slug = req.nextUrl.pathname.split("/").pop();
 
   const data = await fetch(`${origin}/api/link?slug=${slug}`);
+  if (data.status === 200) {
+    const res = await data.json();
 
-  const res = await data.json();
-
-  if (res.url) {
-    return NextResponse.redirect(new URL(res.url, origin));
+    if (res.url) {
+      return NextResponse.redirect(new URL(res.url, origin));
+    }
   }
 
   return NextResponse.next();
