@@ -25,7 +25,7 @@ export default withAuth(
     const data = await fetch(`${origin}/api/link/${slug}`);
 
     if (data.status == 404) {
-      return NextResponse.redirect(origin);
+      return NextResponse.redirect(req.nextUrl.origin);
     }
 
     const res = await data.json();
@@ -48,5 +48,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/dashboard/", "/dashboard/:path*", "/:path*"],
+  matcher: ["/dashboard/", "/dashboard/:path*", "/:slug*"],
 };
