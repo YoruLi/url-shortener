@@ -4,7 +4,7 @@ import { UpTransition } from "@/components/motion";
 
 import React from "react";
 
-export default function page() {
+export default function AuthPage() {
   return (
     <section className="section">
       <UpTransition>
