@@ -44,7 +44,6 @@ export default auth(async (req) => {
 
   const parts = pathname.split("/");
   const shorUrl = parts[parts.length - 1];
-
   try {
     const data = await fetch(`http://localhost:3000/api/link?slug=${shorUrl}`, { method: "GET" });
 
