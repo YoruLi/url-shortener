@@ -85,15 +85,25 @@ export default auth(async (req) => {
 
   const parts = pathname.split("/");
   const shorUrl = parts[parts.length - 1];
-  const data = await fetch(`${origin}/api/link?slug=${shorUrl}`);
-  if (data.status === 200) {
-    const res = await data.json();
-    if (res.url) {
-      return NextResponse.redirect(new URL(res.url, origin));
+  console.log(`${req.nextUrl.origin}/api/url/${shorUrl}`);
+  try {
+    const data = await fetch(`${req.nextUrl.origin}/api/url/${shorUrl}`, { method: "GET" });
+    console.log(data.status);
+    if (data.status === 404) {
+      // return NextResponse.redirect(req.nextUrl.origin);
+    } else {
+      const res = await data.json();
+      console.log(res);
+      if (res.url) {
+        console.log(res.url);
+        return NextResponse.redirect(res.url);
+      }
     }
-  } else return NextResponse.redirect(req.nextUrl.origin);
+  } catch (error) {
+    console.error("Error parsing JSON response:", error);
+  }
 });
 
 export const config = {
-  matcher: ["/dashboard", "/:slug*"],
+  matcher: ["/dashboard", "/go/:slug*"],
 };
