@@ -10,6 +10,7 @@ import { LinkIcon } from "../icons/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { createLink, updateLink } from "@/app/actions";
+import { generateRandomSlug } from "@/utils/generate-random-slug";
 
 const schema = z.object({
   url: z.string(),
@@ -23,16 +24,17 @@ interface LinkFormProps {
 }
 
 export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFormProps) {
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const {
     handleSubmit,
+    setValue,
     formState: { errors },
     register,
   } = useForm<CreateLink>({
     defaultValues: defaultValuesProp,
   });
 
-  const [isPending, startTransition] = useTransition();
   const handleCreateLink = async (values: CreateLink) => {
     if (type === "Insert") {
       try {
@@ -102,7 +104,11 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
             className="relative hover:scale-105 py-2"
           />
           <div className="absolute right-2 top-2 *:opacity-70 *:hover:opacity-100">
-            <Dice />
+            <Dice
+              onClick={() => {
+                setValue("slug", generateRandomSlug());
+              }}
+            />
           </div>
         </div>
         <legend className="text-gray-500 text-sm">https://lym.vercel.app/lpm/</legend>
