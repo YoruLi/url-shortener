@@ -8,8 +8,6 @@ import { getLinks } from "../actions";
 import { auth } from "../api/auth/options";
 
 export const dynamic = "force-dynamic";
-export const runtime = "edge";
-
 export default async function Dashboard() {
   const session = await auth();
 
