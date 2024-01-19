@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/utils/db/client";
-import { getServerSession } from "next-auth";
-import { options } from "../auth/options";
+import { auth } from "@/auth";
 
 export const GET = async (req: Request) => {
-  const session = await getServerSession(options);
+  const session = await auth();
 
   try {
     const allLinks = await prisma.link.findMany({
@@ -20,7 +19,7 @@ export const GET = async (req: Request) => {
 
 export const POST = async (req: Request) => {
   const body = await req.json();
-  const session = await getServerSession(options);
+  const session = await auth();
   const { slug, url } = body;
 
   if (!session) {
