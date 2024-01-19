@@ -7,7 +7,7 @@ import ProgressBar from "@/components/ui/progress-bar";
 import { InitialShow } from "@/components/motion";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
-import { auth } from "./api/auth/options";
+import { auth } from "@/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 

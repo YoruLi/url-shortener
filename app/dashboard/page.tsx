@@ -5,7 +5,7 @@ import { LinkButton } from "@/components/ui/link-button";
 import { Add } from "@/components/icons/add";
 import Card from "@/components/ui/card";
 import { getLinks } from "../actions";
-import { auth } from "../api/auth/options";
+import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";
 export default async function Dashboard() {
