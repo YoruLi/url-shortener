@@ -8,24 +8,14 @@ import { Dropdown, DropdownItem } from "./dropdown";
 import toast from "react-hot-toast";
 import Modal from "./modal";
 import LinkForm from "../form/link";
-import Delete from "../link/delete";
+
 import { deleteLink } from "@/app/actions";
+import Delete from "../features/delete";
+import { copyToClipBoard } from "@/utils/copy-to-clipboard";
 
 export default function Card(props: link) {
   const [showEdit, setShowEdit] = React.useState(false);
   const [showDelete, setShowDelete] = React.useState(false);
-  const copyToClipBoard = async (text: string) => {
-    try {
-      const clpItem = new ClipboardItem({
-        "text/plain": new Blob([text], { type: "text/plain" }),
-      });
-      await window.navigator.clipboard.write([clpItem]);
-    } catch (error) {
-      await window.navigator.clipboard.writeText(text);
-    }
-
-    toast.success("URL copied to clipboard");
-  };
 
   const handleDeleteLink = async () => {
     try {
@@ -53,14 +43,13 @@ export default function Card(props: link) {
           >
             {props.slug}
           </a>
-          <Copy className="size-5 opacity-80 hover:opacity-100 hover:scale-105" />
+          <Copy
+            className="size-5 opacity-80 hover:opacity-100 hover:scale-105"
+            onClick={() => copyToClipBoard(`${getUrl()}/${props.slug}`)}
+          />
         </div>
         <Dropdown>
-          <DropdownItem
-            onClick={() => {
-              copyToClipBoard(`${getUrl()}/${props.slug}`);
-            }}
-          >
+          <DropdownItem onClick={() => copyToClipBoard(`${getUrl()}/${props.slug}`)}>
             Copy short url
           </DropdownItem>
           <DropdownItem onClick={() => setShowDelete(!showDelete)}>Delete</DropdownItem>
