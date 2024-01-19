@@ -4,6 +4,7 @@ import { prisma } from "@/utils/db/client";
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { NextApiRequest, NextApiResponse } from "next";
+<<<<<<< HEAD
 
 type CombineRequest = Request & NextApiRequest;
 type CombineResponse = Response & NextApiResponse;
@@ -12,6 +13,12 @@ export const GET = async (req: CombineRequest, res: CombineResponse) => {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug") as string;
 
+=======
+type CombineRequest = Request & NextApiRequest;
+type CombineResponse = Response & NextApiResponse;
+export const GET = async (req: CombineRequest, res: CombineResponse) => {
+  const { slug } = req.query;
+>>>>>>> 9de2cb245f3d0d31a0564b184d74a309edc80e9f
   if (!slug || typeof slug !== "string") {
     return NextResponse.json({ error: "Missing Slug..." }, { status: 400 });
   }
