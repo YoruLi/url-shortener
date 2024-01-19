@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { prisma } from "@/utils/db/client";
 import authConfig from "@/auth.config";
+import { getUserById } from "./app/actions";
 
 export const {
   handlers: { GET, POST },
@@ -24,11 +25,26 @@ export const {
     },
   },
   callbacks: {
-    async session({ session }) {
+    async session({ session, token }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub;
+      }
+
+      if (session.user) {
+        session.user.name = token.name;
+        session.user.email = token.email;
+      }
       return session;
     },
     async jwt({ token }) {
       if (!token.sub) return token;
+      const existingUser = await getUserById(token.sub);
+      if (!existingUser) {
+        return token;
+      }
+
+      token.email = existingUser.email;
+      token.name = existingUser.name;
 
       return token;
     },
