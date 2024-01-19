@@ -58,6 +58,7 @@ export const apiAuthPrefix = "/auth";
 
 export default auth(async (req) => {
   const { nextUrl } = req;
+  const { origin } = new URL(req.url);
   const isLoggedIn = !!req.auth;
   const session = await auth();
 
@@ -80,18 +81,17 @@ export default auth(async (req) => {
 
   // return null;
 
-  const slug = req.nextUrl.pathname.split("/").pop();
+  const pathname = req.nextUrl.pathname;
 
-  const data = await fetch(`${origin}/api/link?slug=${slug}`);
+  const parts = pathname.split("/");
+  const shorUrl = parts[parts.length - 1];
+  const data = await fetch(`${origin}/api/link?slug=${shorUrl}`);
   if (data.status === 200) {
     const res = await data.json();
-
     if (res.url) {
       return NextResponse.redirect(new URL(res.url, origin));
     }
-  }
-
-  return NextResponse.next();
+  } else return NextResponse.redirect(req.nextUrl.origin);
 });
 
 export const config = {
