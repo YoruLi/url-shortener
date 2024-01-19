@@ -24,16 +24,7 @@ export const {
     },
   },
   callbacks: {
-    async session({ token, session }) {
-      if (token.sub && session.user) {
-        session.user.id = token.sub;
-      }
-
-      if (session.user) {
-        session.user.name = token.name;
-        session.user.email = token.email;
-      }
-
+    async session({ session }) {
       return session;
     },
     async jwt({ token }) {

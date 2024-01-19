@@ -1,11 +1,11 @@
 "use server";
-import { Session, getServerSession } from "next-auth";
+import { Session } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/utils/db/client";
-import { options } from "../api/auth/options";
+import { auth } from "@/auth";
 
 export const updateLink = async (values: any) => {
-  const session = await getServerSession(options);
+  const session = await auth();
   await prisma.link.update({
     where: {
       id: values.id,
@@ -26,7 +26,7 @@ export const deleteLink = async (id: number) => {
 };
 
 export const createLink = async (values: any) => {
-  const session = await getServerSession(options);
+  const session = await auth();
 
   const checkSlug = await prisma.link.findUnique({
     where: {
