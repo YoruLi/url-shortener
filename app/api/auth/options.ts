@@ -30,12 +30,13 @@ export const {
     signIn: "/auth",
   },
   callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
-    },
-    async session({ session, newSession }) {
-      session.user = newSession;
-      return session;
-    },
+    session: ({ session, newSession }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: newSession.id,
+        username: newSession.username,
+      },
+    }),
   },
 });
