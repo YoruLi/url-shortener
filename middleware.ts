@@ -44,12 +44,11 @@ export default auth(async (req) => {
 
   const parts = pathname.split("/");
   const shorUrl = parts[parts.length - 1];
-
   try {
-    const data = await fetch(`http://localhost:3000/api/link?slug=${shorUrl}`, { method: "GET" });
+    const data = await fetch(`${origin}/api/link?slug=${shorUrl}`, { method: "GET" });
 
     if (data.status === 404) {
-      return NextResponse.redirect(req.nextUrl.origin);
+      return NextResponse.redirect(origin);
     }
     const res = await data.json();
     console.log(res);
