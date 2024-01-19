@@ -28,7 +28,6 @@ export const deleteLink = async (id: number) => {
 export const createLink = async (values: any) => {
   const session = await auth();
 
-  console.log(session);
   const checkSlug = await prisma.link.findUnique({
     where: {
       slug: values.slug || "",

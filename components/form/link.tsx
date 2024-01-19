@@ -117,7 +117,8 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
       </div>
 
       <LinkButton className="hover:scale-105 !px-8 float-end rounded-md" disabled={isPending}>
-        {isPending ? "Loading..." : " Create link"} <LinkIcon className="opacity-80 size-5" />
+        {isPending ? "Loading..." : type === "Insert" ? " Create link" : " Edit link"}
+        <LinkIcon className="opacity-80 size-5" />
       </LinkButton>
     </form>
   );
