@@ -59,10 +59,8 @@ export const apiAuthPrefix = "/auth";
 export default auth(async (req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
-  console.log(isLoggedIn);
   const session = await auth();
-  console.log(session?.user);
-  console.log(isLoggedIn);
+
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
 
   // if (isApiAuthRoute) {
@@ -82,9 +80,19 @@ export default auth(async (req) => {
 
   // return null;
 
+  const slug = req.nextUrl.pathname.split("/").pop();
+
+  const data = await fetch(`${origin}/api/link?slug=${slug}`);
+
+  const res = await data.json();
+
+  if (res.url) {
+    return NextResponse.redirect(new URL(res.url, origin));
+  }
+
   return NextResponse.next();
 });
 
 export const config = {
-  matcher: ["/dashboard"],
+  matcher: ["/dashboard", "/:slug*"],
 };
