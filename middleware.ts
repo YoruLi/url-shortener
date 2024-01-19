@@ -62,22 +62,22 @@ export default auth((req) => {
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
 
-  if (isApiAuthRoute) {
-    return null;
-  }
+  // if (isApiAuthRoute) {
+  //   return null;
+  // }
 
-  if (nextUrl.pathname === "/auth") {
-    if (isLoggedIn) {
-      return Response.redirect(new URL("/dashboard", nextUrl));
-    }
-    return null;
-  }
+  // if (nextUrl.pathname === "/auth") {
+  //   if (isLoggedIn) {
+  //     return Response.redirect(new URL("/dashboard", nextUrl));
+  //   }
+  //   return null;
+  // }
 
-  if (!isLoggedIn) {
-    return Response.redirect(new URL(`/auth`, nextUrl));
-  }
+  // if (!isLoggedIn) {
+  //   return Response.redirect(new URL(`/auth`, nextUrl));
+  // }
 
-  return null;
+  // return null;
 });
 
 // Optionally, don't invoke Middleware on some paths
