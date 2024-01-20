@@ -52,7 +52,7 @@ export const createLink = async (values: any) => {
 export const getLinks = async (session: Session) => {
   const result = await prisma?.link.findMany({
     where: {
-      creatorId: session.user.id,
+      creatorId: session?.user?.id,
     },
   });
 
