@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
 
-export const apiAuthPrefix = "/api/link";
-
 export default auth(async (req) => {
   const { nextUrl } = req;
   const { origin } = new URL(req.url);
@@ -18,11 +16,6 @@ export default auth(async (req) => {
   );
   const isAuthRoute = "/auth";
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-
-  if (isApiAuthRoute) {
-    return null;
-  }
   if (isAuthRoute) {
     if (isLoggedIn) {
       return Response.redirect(origin);
@@ -59,5 +52,5 @@ export default auth(async (req) => {
 });
 
 export const config = {
-  matcher: ["/go/:slug*", "/api/:path*", "/dashboard/:path*"],
+  matcher: ["/go/:slug*", "/dashboard/:path*"],
 };
