@@ -38,25 +38,27 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
 
   const handleCreateLink = async (values: CreateLink) => {
     if (type === "Insert") {
-      try {
-        startTransition(() => createLink(values));
-        router.push("/dashboard");
-        toast.success("Link created successfully");
-      } catch (error: any) {
-        console.log(error);
-        toast.error(error.message);
-        console.error(error);
-      }
+      startTransition(async () => {
+        try {
+          await createLink(values);
+          router.push("/dashboard");
+          toast.success("Link created successfully");
+        } catch (error: any) {
+          toast.error(error.message);
+        }
+      });
     }
 
     if (type === "Update") {
-      try {
-        startTransition(() => updateLink(values));
-        toast.success("Link updated successfully");
-      } catch (error: any) {
-        toast.error(error.message);
-        console.error(error);
-      }
+      startTransition(async () => {
+        try {
+          await updateLink(values);
+          toast.success("Link updated successfully");
+        } catch (error: any) {
+          toast.error(error.message);
+          console.error(error);
+        }
+      });
     }
   };
   return (

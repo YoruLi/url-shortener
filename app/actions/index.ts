@@ -7,15 +7,33 @@ import { link } from "@prisma/client";
 
 export const updateLink = async (values: any) => {
   const session = await auth();
-  await prisma.link.update({
-    where: {
-      id: values.id,
-    },
-    data: {
-      ...values,
-      creatorId: session?.user.id,
-    },
-  });
+
+  try {
+    if (!session) {
+      throw new Error("User not logged in");
+    }
+    const checkSlug = await prisma.link.findUnique({
+      where: {
+        slug: values.slug || "",
+      },
+    });
+
+    if (checkSlug) {
+      throw new Error("Please, try another slug. This one is already in use");
+    }
+
+    await prisma.link.update({
+      where: {
+        id: values.id,
+      },
+      data: {
+        ...values,
+        creatorId: session?.user.id,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
   revalidatePath("/dashboard");
 };
 
@@ -28,27 +46,30 @@ export const deleteLink = async (id: number) => {
 
 export const createLink = async (values: any) => {
   const session = await auth();
-  if (!session) {
-    throw new Error("User not logged in");
+  try {
+    if (!session) {
+      throw new Error("User not logged in");
+    }
+    const checkSlug = await prisma.link.findUnique({
+      where: {
+        slug: values.slug || "",
+      },
+    });
+
+    if (checkSlug) {
+      throw new Error("Please, try another slug. This one is already in use");
+    }
+
+    await prisma.link.create({
+      data: {
+        slug: values.slug,
+        url: values.url,
+        creatorId: session?.user?.id,
+      },
+    });
+  } catch (error) {
+    throw error;
   }
-  const checkSlug = await prisma.link.findUnique({
-    where: {
-      slug: values.slug || "",
-    },
-  });
-
-  if (checkSlug) {
-    return new Error("Please, try another slug. This one is already in use");
-  }
-
-  await prisma.link.create({
-    data: {
-      slug: values.slug,
-      url: values.url,
-      creatorId: session?.user?.id,
-    },
-  });
-
   revalidatePath("/dashboard");
 };
 
