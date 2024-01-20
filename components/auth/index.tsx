@@ -6,11 +6,10 @@ import { useState } from "react";
 import { SignOut } from "../icons/sign-out";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { currentUser } from "@/utils/current-user";
-import { useCurrentUser } from "@/hooks/use-session";
 
 export const Auth = () => {
-  const { data: session, status } = useCurrentUser();
+  const { data: session, status } = useSession();
+
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleSignIn = async () => {
