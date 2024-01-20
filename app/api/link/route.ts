@@ -2,29 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/utils/db/client";
 import { auth } from "@/auth";
 
-export const GET = async (req: Request, { params }: { params: { slug: string } }) => {
+export const GET = async (req: Request) => {
   const session = await auth();
-  const { searchParams } = new URL(req.url);
-  const slug = searchParams.get("slug");
 
-  try {
-    if (slug) {
-      const data = await prisma.link.findFirst({
-        where: {
-          slug: {
-            equals: slug,
-          },
-        },
-      });
-
-      if (!data) {
-        return NextResponse.json({ error: "Slug not found" }, { status: 404 });
-      }
-
-      // res.setHeader("Cache-Control", "s-maxage=1000000, stale-while-revalidate");
-      return NextResponse.json(data, { status: 200 });
-    }
-  } catch (error) {}
   try {
     const allLinks = await prisma.link.findMany({
       where: {
