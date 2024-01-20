@@ -6,6 +6,8 @@ import { Add } from "@/components/icons/add";
 import Card from "@/components/ui/card";
 import { getLinks } from "../actions";
 import { auth } from "@/auth";
+import Loading from "./loading";
+import Links from "./links";
 
 export const dynamic = "force-dynamic";
 export default async function Dashboard() {
@@ -15,7 +17,6 @@ export default async function Dashboard() {
     return redirect("/auth");
   }
 
-  const allLinks = await getLinks(session);
   return (
     <section className="container pl-4 pr-4 md:pl-0 md:pr-0 mx-auto pb-3">
       <div className=" flex items-center justify-between mb-10">
@@ -25,22 +26,9 @@ export default async function Dashboard() {
           <Add /> Create link
         </LinkButton>
       </div>
-      {allLinks.length === 0 ? (
-        <span className=" text-center animate-pulse font-sans block capitalize">
-          No links available..
-        </span>
-      ) : (
-        <div
-          className="grid gap-4 w-full"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px,1fr))",
-          }}
-        >
-          {allLinks?.map((link) => (
-            <Card key={link.id} {...link} />
-          ))}
-        </div>
-      )}
+      <React.Suspense fallback={<Loading />}>
+        <Links session={session} />
+      </React.Suspense>
     </section>
   );
 }
