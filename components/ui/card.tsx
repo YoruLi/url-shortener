@@ -1,5 +1,5 @@
 "use client";
-import { getUrl } from "@/utils/get-url";
+
 import { link } from "@prisma/client";
 import React from "react";
 import { Copy } from "../icons/copy";
