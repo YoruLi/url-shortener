@@ -14,19 +14,11 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
+    <div className="section">
+      <h2 className="title">Something went wrong!</h2>
+      <button onClick={() => reset()} className="text-primary/50">
         Try again
       </button>
-
-      <p>{error.digest}</p>
-      <span>{error.message}</span>
     </div>
   );
 }
