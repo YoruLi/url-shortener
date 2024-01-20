@@ -7,8 +7,11 @@ import { Add } from "@/components/icons/add";
 import { auth } from "@/auth";
 
 import Links from "./links";
+import Loading from "@/components/loader/loading";
 
 export const revalidate = "0";
+export const dynamic = "force-dynamic";
+
 export default async function Dashboard() {
   const session = await auth();
 
@@ -26,7 +29,9 @@ export default async function Dashboard() {
         </LinkButton>
       </div>
 
-      <Links session={session} />
+      <React.Suspense fallback={<Loading />}>
+        <Links session={session} />
+      </React.Suspense>
     </section>
   );
 }
