@@ -29,6 +29,7 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
   const {
     handleSubmit,
     setValue,
+    setError,
     formState: { errors },
     register,
   } = useForm<CreateLink>({
@@ -42,6 +43,7 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
         router.push("/dashboard");
         toast.success("Link created successfully");
       } catch (error: any) {
+        console.log(error);
         toast.error(error.message);
         console.error(error);
       }

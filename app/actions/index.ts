@@ -1,8 +1,9 @@
 "use server";
 import { Session } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/utils/db/client";
+import prisma from "@/utils/db/client";
 import { auth } from "@/auth";
+import { link } from "@prisma/client";
 
 export const updateLink = async (values: any) => {
   const session = await auth();
@@ -27,7 +28,9 @@ export const deleteLink = async (id: number) => {
 
 export const createLink = async (values: any) => {
   const session = await auth();
-
+  if (!session) {
+    throw new Error("User not logged in");
+  }
   const checkSlug = await prisma.link.findUnique({
     where: {
       slug: values.slug || "",
@@ -35,7 +38,7 @@ export const createLink = async (values: any) => {
   });
 
   if (checkSlug) {
-    return;
+    throw new Error("Please, try another slug. This one is already in use");
   }
 
   await prisma.link.create({
@@ -49,7 +52,7 @@ export const createLink = async (values: any) => {
   revalidatePath("/dashboard");
 };
 
-export const getLinks = async (session: Session) => {
+export const getLinks = async (session: Session): Promise<link[]> => {
   const result = await prisma?.link.findMany({
     where: {
       creatorId: session?.user?.id,
