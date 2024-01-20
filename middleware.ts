@@ -1,10 +1,8 @@
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-const { auth } = NextAuth(authConfig);
-
-export default auth(async (req) => {
+export async function middleware(req: NextRequest) {
   const { origin } = new URL(req.url);
   const pathname = req.nextUrl?.pathname;
 
@@ -24,7 +22,7 @@ export default auth(async (req) => {
   } catch (error) {
     console.error(error);
   }
-});
+}
 
 export const config = {
   matcher: ["/go/:slug*"],
