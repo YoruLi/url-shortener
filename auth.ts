@@ -16,8 +16,21 @@ export const {
     signIn: "/auth",
     error: "/auth",
   },
+  events: {
+    async linkAccount({ user }) {
+      await prisma?.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
+  },
 
   callbacks: {
+    async signIn({ user, account }) {
+      const existingUser = await getUserById(user.id as string);
+
+      return true;
+    },
     async session({ session, token }: { session: Session; token?: any }): Promise<Session> {
       if (token.sub && session.user) {
         session.user.id = token.sub;

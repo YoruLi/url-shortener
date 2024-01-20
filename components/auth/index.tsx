@@ -6,6 +6,7 @@ import { useState } from "react";
 import { SignOut } from "../icons/sign-out";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { auth } from "@/auth";
 
 export const Auth = () => {
   const { data: session, status } = useSession();
