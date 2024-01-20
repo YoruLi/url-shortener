@@ -37,7 +37,6 @@ export default auth(async (req) => {
     if (isLoggedIn && session) {
       return Response.redirect(new URL("/dashboard", nextUrl));
     }
-    return null;
   }
 
   const parts = pathname.split("/");
