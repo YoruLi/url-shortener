@@ -19,8 +19,7 @@ export default auth(async (req) => {
     const res = await data.json();
 
     if (data?.url) {
-      console.log(res.url);
-      return NextResponse.redirect(res.url);
+      return NextResponse.redirect(new URL(res.url));
     }
   } catch (error) {
     console.error(error);
