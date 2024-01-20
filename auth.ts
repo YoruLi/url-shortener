@@ -16,14 +16,6 @@ export const {
     signIn: "/auth",
     error: "/auth",
   },
-  events: {
-    async linkAccount({ user }) {
-      await prisma?.user.update({
-        where: { id: user.id },
-        data: { emailVerified: new Date() },
-      });
-    },
-  },
 
   callbacks: {
     async session({ session, token }: { session: Session; token?: any }): Promise<Session> {
