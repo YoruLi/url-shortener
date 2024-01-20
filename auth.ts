@@ -50,6 +50,7 @@ export const {
       return token;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma!!),
   session: { strategy: "jwt" },
   ...authConfig,
