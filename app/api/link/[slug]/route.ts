@@ -1,4 +1,4 @@
-import { prisma } from "@/utils/db/client";
+import prisma from "@/utils/db/client";
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { NextApiRequest, NextApiResponse } from "next";
