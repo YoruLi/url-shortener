@@ -24,6 +24,9 @@ export default function Error({
       >
         Try again
       </button>
+
+      <p>{error.digest}</p>
+      <span>{error.message}</span>
     </div>
   );
 }
