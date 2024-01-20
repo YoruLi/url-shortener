@@ -3,8 +3,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { LinkButton } from "@/components/ui/link-button";
 import { Add } from "@/components/icons/add";
-import Card from "@/components/ui/card";
-import { getLinks } from "../actions";
+
 import { auth } from "@/auth";
 import Loading from "./loading";
 import Links from "./links";
