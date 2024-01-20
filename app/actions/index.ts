@@ -38,7 +38,7 @@ export const createLink = async (values: any) => {
   });
 
   if (checkSlug) {
-    throw new Error("Please, try another slug. This one is already in use");
+    return new Error("Please, try another slug. This one is already in use");
   }
 
   await prisma.link.create({
