@@ -28,5 +28,5 @@ export default auth(async (req) => {
 });
 
 export const config = {
-  matcher: ["/go/:slug*", "/api/:path*", "/dashboard/:path*"],
+  matcher: ["/go/:slug*"],
 };
