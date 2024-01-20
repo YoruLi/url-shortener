@@ -1,12 +1,6 @@
-const pino = require("pino");
-
-const logger = (defaultConfig) =>
-  pino({
-    ...defaultConfig,
-    messageKey: "message",
-    mixin: () => ({ name: "custom-pino-instance" }),
-  });
-
-module.exports = {
-  logger,
-};
+export async function register() {
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    await require("pino");
+    await require("next-logger");
+  }
+}
