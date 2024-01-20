@@ -25,19 +25,18 @@ export default auth(async (req) => {
   }
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return Response.redirect(new URL("/", origin));
+      return Response.redirect(origin);
     }
   }
 
   if (!session && isAccessingSensitiveRoute) {
-    return NextResponse.redirect(new URL("/auth", origin));
+    return NextResponse.redirect(`${origin}/auth`);
   }
 
   if (nextUrl.pathname === "/auth") {
     if (isLoggedIn && session) {
-      return Response.redirect(new URL("/dashboard", nextUrl));
+      return Response.redirect(`${origin}/dashboard`);
     }
-    return null;
   }
 
   const parts = pathname.split("/");
