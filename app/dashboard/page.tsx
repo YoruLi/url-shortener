@@ -6,6 +6,7 @@ import { Add } from "@/components/icons/add";
 import Card from "@/components/ui/card";
 import { getLinks } from "../actions";
 import { auth } from "@/auth";
+import Loading from "./loading";
 
 export const dynamic = "force-dynamic";
 export default async function Dashboard() {
@@ -25,7 +26,7 @@ export default async function Dashboard() {
           <Add /> Create link
         </LinkButton>
       </div>
-      {allLinks.length === 0 ? (
+      {allLinks?.length === 0 ? (
         <span className=" text-center animate-pulse font-sans block capitalize">
           No links available..
         </span>
@@ -37,7 +38,9 @@ export default async function Dashboard() {
           }}
         >
           {allLinks?.map((link) => (
-            <Card key={link.id} {...link} />
+            <React.Suspense key={link.id} fallback={<Loading />}>
+              <Card key={link.id} {...link} />
+            </React.Suspense>
           ))}
         </div>
       )}
