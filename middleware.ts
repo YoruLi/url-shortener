@@ -21,11 +21,11 @@ export default auth(async (req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
 
   if (isApiAuthRoute) {
-    return Response.redirect(new URL("/", origin));
+    return null;
   }
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return Response.redirect(new URL("/", nextUrl));
+      return Response.redirect(new URL("/", origin));
     }
   }
 
