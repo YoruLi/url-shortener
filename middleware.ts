@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
 
-export const apiAuthPrefix = "/api/link";
-
 export default auth(async (req) => {
   const { nextUrl } = req;
   const { origin } = new URL(req.url);
@@ -18,11 +16,6 @@ export default auth(async (req) => {
   );
   const isAuthRoute = "/auth";
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-
-  if (isApiAuthRoute) {
-    return null;
-  }
   if (isAuthRoute) {
     if (isLoggedIn) {
       return Response.redirect(origin);
@@ -33,6 +26,9 @@ export default auth(async (req) => {
     return NextResponse.redirect(`${origin}/auth`);
   }
 
+  if (session && isAccessingSensitiveRoute) {
+    return NextResponse.next();
+  }
   if (nextUrl.pathname === "/auth") {
     if (isLoggedIn && session) {
       return Response.redirect(`${origin}/dashboard`);
@@ -59,5 +55,5 @@ export default auth(async (req) => {
 });
 
 export const config = {
-  matcher: ["/go/:slug*", "/api/:path*", "/dashboard/:path*"],
+  matcher: ["/go/:slug*", "/dashboard/:path*"],
 };
