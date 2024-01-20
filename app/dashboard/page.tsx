@@ -22,7 +22,7 @@ export default async function Dashboard() {
         <h1 className="title">Dashboard</h1>
 
         <LinkButton href="/dashboard/create">
-          <Add /> Create new link
+          <Add /> Create link
         </LinkButton>
       </div>
       {allLinks.length === 0 ? (
