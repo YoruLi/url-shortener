@@ -2,7 +2,7 @@ import NextAuth, { Session } from "next-auth";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
-import { prisma } from "@/utils/db/client";
+import prisma from "@/utils/db/client";
 import authConfig from "@/auth.config";
 import { getUserById } from "./app/actions";
 
@@ -18,7 +18,7 @@ export const {
   },
   events: {
     async linkAccount({ user }) {
-      await prisma.user.update({
+      await prisma?.user.update({
         where: { id: user.id },
         data: { emailVerified: new Date() },
       });
@@ -50,7 +50,7 @@ export const {
       return token;
     },
   },
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma!!),
   session: { strategy: "jwt" },
   ...authConfig,
 });
