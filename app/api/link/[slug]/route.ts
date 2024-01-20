@@ -8,6 +8,7 @@ type CombineRequest = Request & NextApiRequest;
 
 export const GET = async (req: CombineRequest, { params }: { params: { slug: string } }) => {
   const res = NextResponse.next();
+
   if (!params?.slug || typeof params.slug !== "string") {
     return NextResponse.json({ error: "Missing Slug..." }, { status: 400 });
   }

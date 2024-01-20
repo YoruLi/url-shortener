@@ -24,6 +24,7 @@ export default function Card(props: link) {
         icon: "✔",
       });
     } catch (error) {
+      console.error(error);
       toast.error("Something was wrong");
     } finally {
       setShowDelete(false);
