@@ -5,10 +5,10 @@ import { LinkButton } from "@/components/ui/link-button";
 import { Add } from "@/components/icons/add";
 
 import { auth } from "@/auth";
-import Loading from "./loading";
+
 import Links from "./links";
 
-export const dynamic = "force-dynamic";
+export const revalidate = "0";
 export default async function Dashboard() {
   const session = await auth();
 
@@ -25,9 +25,8 @@ export default async function Dashboard() {
           <Add /> Create link
         </LinkButton>
       </div>
-      <React.Suspense fallback={<Loading />}>
-        <Links session={session} />
-      </React.Suspense>
+
+      <Links session={session} />
     </section>
   );
 }
