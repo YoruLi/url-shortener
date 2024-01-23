@@ -6,14 +6,6 @@ export default function Loading() {
   return (
     <>
       <section className="container pl-4 pr-4 md:pl-0 md:pr-0 mx-auto pb-3">
-        <div className=" flex items-center justify-between mb-10">
-          <h1 className="title">Dashboard</h1>
-
-          <LinkButton href="/dashboard/create">
-            <Add /> Create link
-          </LinkButton>
-        </div>
-
         <ul
           className="grid gap-4 w-full"
           style={{

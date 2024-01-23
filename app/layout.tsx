@@ -8,6 +8,7 @@ import { InitialShow } from "@/components/motion";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,6 +38,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 className: "!bg-background border border-white/10 !text-primary",
               }}
             />
+
+            <Footer />
           </body>
         </SessionProvider>
       </html>
