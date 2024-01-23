@@ -5,24 +5,23 @@ import { NextResponse } from "next/server";
 const { auth } = NextAuth(authConfig);
 
 export default auth(async (req) => {
-  const { origin } = new URL(req.url);
-  const pathname = req.nextUrl?.pathname;
+  const pathname = req.nextUrl.pathname;
 
-  const parts = pathname.split("/");
-  const shorUrl = parts[parts.length - 1];
+  const shorUrl = pathname.split("/").pop();
+
   try {
-    const data = await fetch(`${origin}/api/link/${shorUrl}`);
+    const data = await fetch(`${req.nextUrl.origin}/api/link/${shorUrl}`);
 
     if (data.status === 404) {
-      return NextResponse.redirect(origin);
+      return NextResponse.redirect(req.nextUrl.origin);
     }
-    const res = await data.json();
 
-    if (data.status === 200) {
+    const res = await data.json();
+    if (data?.url) {
       return NextResponse.redirect(new URL(res.url));
     }
   } catch (error) {
-    console.error(error);
+    return NextResponse.redirect(req.nextUrl.origin);
   }
 });
 
