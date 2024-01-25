@@ -40,11 +40,11 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    session: ({ session, user }) => ({
+    session: ({ session, user, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        id: token.id,
       },
     }),
   },
