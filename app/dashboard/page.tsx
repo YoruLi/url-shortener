@@ -4,16 +4,15 @@ import { redirect } from "next/navigation";
 import { LinkButton } from "@/components/ui/link-button";
 import { Add } from "@/components/icons/add";
 
-import { auth } from "@/auth";
-
 import Links from "./links";
 import Loading from "@/components/loader/loading";
+import { getServerSession } from "next-auth";
 
 export const revalidate = "0";
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const session = await auth();
+  const session = await getServerSession();
 
   if (!session) {
     return redirect("/auth");

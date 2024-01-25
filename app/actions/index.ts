@@ -1,12 +1,12 @@
 "use server";
-import { Session } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import prisma from "@/utils/db/client";
-import { auth } from "@/auth";
+
 import { link } from "@prisma/client";
 
 export const updateLink = async (values: any) => {
-  const session = await auth();
+  const session = await getServerSession();
 
   try {
     if (!session) {
@@ -45,7 +45,7 @@ export const deleteLink = async (id: number) => {
 };
 
 export const createLink = async (values: any) => {
-  const session = await auth();
+  const session = await getServerSession();
   try {
     if (!session) {
       throw new Error("User not logged in");

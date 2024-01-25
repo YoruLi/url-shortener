@@ -19,7 +19,6 @@ export const Auth = () => {
       });
     } catch (error: any) {
       toast.error("Something was wrong");
-      console.error(error);
     }
   };
 

@@ -2,7 +2,7 @@ import prisma from "@/utils/db/client";
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { NextApiRequest, NextApiResponse } from "next";
-import { auth } from "@/auth";
+import { getServerSession } from "next-auth";
 
 type CombineRequest = Request & NextApiRequest;
 
@@ -35,7 +35,7 @@ export const GET = async (req: CombineRequest, { params }: { params: { slug: str
 
 export const PUT = async (req: Request, { params }: { params: { slug: string } }) => {
   const body = await req.json();
-  const session = await auth();
+  const session = await getServerSession();
 
   if (!session?.user) {
     return NextResponse.json({ message: "User not logged in." }, { status: 401 });
