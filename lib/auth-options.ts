@@ -22,29 +22,32 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
-  events: {
-    signOut: async ({ session }) => {
-      await prisma.account.delete({
-        where: {
-          id: session.user.id,
-        },
-      });
-    },
-  },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   callbacks: {
+    async signIn({ user, account }) {
+      // Allow OAuth without email verification
+      if (account?.provider !== "credentials") return true;
+
+      return true;
+    },
     async jwt({ token, user }: { token: JWT; user: User | AdapterUser }) {
       if (typeof user !== "undefined") {
         return user as unknown as JWT;
       }
       return token;
     },
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-      },
-    }),
+    async session({ token, session }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub;
+      }
+
+      if (session.user) {
+        session.user.name = token.name;
+        session.user.email = token.email;
+      }
+
+      return session;
+    },
   },
 };
