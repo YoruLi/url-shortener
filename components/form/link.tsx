@@ -44,7 +44,7 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
           router.push("/dashboard");
           toast.success("Link created successfully");
         } catch (error: any) {
-          toast.error(error.message);
+          toast.error("Please, try another slug. This one is already in use");
         }
       });
     }
@@ -55,7 +55,7 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
           await updateLink(values);
           toast.success("Link updated successfully");
         } catch (error: any) {
-          toast.error(error.message);
+          toast.error("Please, try another slug. This one is already in use");
           console.error(error);
         }
       });
@@ -115,7 +115,7 @@ export default function LinkForm({ defaultValuesProp, type = "Insert" }: LinkFor
             />
           </div>
         </div>
-        <legend className="text-gray-500 text-sm">https://lym.vercel.app/lpm/</legend>
+        <legend className="text-gray-500 text-sm">https://lym.vercel.app/go/lym</legend>
 
         {errors.slug && <TextAlert>{errors.slug.message}</TextAlert>}
       </div>
