@@ -1,4 +1,4 @@
-import NextAuth, { User, type NextAuthOptions } from "next-auth";
+import NextAuth, { User, type NextAuthOptions, getServerSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -23,10 +23,11 @@ export const authOptions: NextAuthOptions = {
   ],
 
   events: {
-    signOut: async ({ session, token }) => {
+    signOut: async ({}) => {
+      const session = await getServerSession(authOptions);
       const deleteAccount = await prisma.account.delete({
         where: {
-          id: session.user.id,
+          id: session?.user?.id,
         },
       });
     },
