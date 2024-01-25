@@ -57,7 +57,7 @@ export const createLink = async (values: any) => {
       },
     });
 
-    if (checkSlug) {
+    if (checkSlug?.slug) {
       throw new Error("Please, try another slug. This one is already in use");
     }
 
