@@ -5,22 +5,18 @@ import { LinkButton } from "../ui/link-button";
 import { useState } from "react";
 import { SignOut } from "../icons/sign-out";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { auth } from "@/auth";
 
 export const Auth = () => {
   const { data: session, status } = useSession();
 
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+
   const handleSignIn = async () => {
     setLoading(true);
     try {
       await signIn("github", {
         callbackUrl: "/dashboard",
       });
-      router.push("/dashboard");
-      toast.success("Logged in successfuly");
     } catch (error: any) {
       toast.error("Something was wrong");
       console.error(error);
