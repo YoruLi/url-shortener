@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/utils/db/client";
+import prisma from "@/lib/db/client";
 import { getServerSession } from "next-auth";
 
 export const GET = async (req: Request) => {
