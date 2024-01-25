@@ -4,8 +4,8 @@ import { Session } from "next-auth";
 
 import Card from "@/components/ui/card";
 
-export default async function Links({ session }: { session: Session }) {
-  const allLinks = await getLinks(session);
+export default async function Links() {
+  const allLinks = await getLinks();
   return allLinks?.length === 0 ? (
     <span className=" text-center animate-pulse font-sans block capitalize">
       No links available..

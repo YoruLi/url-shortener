@@ -30,7 +30,7 @@ export default async function Dashboard() {
       </div>
 
       <React.Suspense fallback={<Loading />}>
-        <Links session={session} />
+        <Links />
       </React.Suspense>
     </section>
   );

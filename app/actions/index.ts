@@ -74,12 +74,18 @@ export const createLink = async (values: any) => {
   revalidatePath("/dashboard");
 };
 
-export const getLinks = async (session: Session): Promise<link[]> => {
-  const result = await prisma.link.findMany({
-    where: {
-      creatorId: session?.user?.id,
-    },
-  });
+export const getLinks = async (): Promise<link[]> => {
+  const session = await getServerSession(authOptions);
 
-  return result;
+  try {
+    const result = await prisma.link.findMany({
+      where: {
+        creatorId: session?.user?.id,
+      },
+    });
+
+    return result;
+  } catch (error) {
+    return [];
+  }
 };
