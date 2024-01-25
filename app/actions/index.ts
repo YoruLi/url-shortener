@@ -51,7 +51,7 @@ export const createLink = async (values: any) => {
     if (!session) {
       throw new Error("User not logged in");
     }
-    const checkSlug = await prisma.link.findUnique({
+    const checkSlug = await prisma.link.findFirst({
       where: {
         slug: values.slug || "",
       },
@@ -75,7 +75,7 @@ export const createLink = async (values: any) => {
 };
 
 export const getLinks = async (session: Session): Promise<link[]> => {
-  const result = await prisma?.link.findMany({
+  const result = await prisma.link.findMany({
     where: {
       creatorId: session?.user?.id,
     },
