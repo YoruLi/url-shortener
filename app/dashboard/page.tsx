@@ -7,12 +7,13 @@ import { Add } from "@/components/icons/add";
 import Links from "./links";
 import Loading from "@/components/loader/loading";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
 
 export const revalidate = "0";
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     return redirect("/auth");

@@ -1,7 +1,7 @@
 import React from "react";
 import { getLinks } from "../actions";
 import { Session } from "next-auth";
-import Loading from "../../components/loader/loading";
+
 import Card from "@/components/ui/card";
 
 export default async function Links({ session }: { session: Session }) {

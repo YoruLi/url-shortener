@@ -4,9 +4,10 @@ import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db/client";
 
 import { link } from "@prisma/client";
+import { authOptions } from "@/lib/auth-options";
 
 export const updateLink = async (values: any) => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   try {
     if (!session) {
@@ -45,7 +46,7 @@ export const deleteLink = async (id: number) => {
 };
 
 export const createLink = async (values: any) => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   try {
     if (!session) {
       throw new Error("User not logged in");

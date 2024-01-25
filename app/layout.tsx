@@ -6,10 +6,12 @@ import Header from "@/components/header";
 import ProgressBar from "@/components/ui/progress-bar";
 import { InitialShow } from "@/components/motion";
 import { Toaster } from "react-hot-toast";
-import { SessionProvider } from "next-auth/react";
 
 import Footer from "@/components/footer";
+
+import Providers from "@/components/providers";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +21,11 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   return (
     <>
       <html lang="en">
-        <SessionProvider session={session}>
+        <Providers session={session}>
           <body
             className={`${inter.className} min-h-dvh w-full overflow-hidden scrollbar [overflow-y:overlay] [scrollbar-width:none]`}
           >
@@ -42,7 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
             <Footer />
           </body>
-        </SessionProvider>
+        </Providers>
       </html>
     </>
   );

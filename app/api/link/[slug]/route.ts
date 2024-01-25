@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
 
 type CombineRequest = Request & NextApiRequest;
 
@@ -35,7 +36,7 @@ export const GET = async (req: CombineRequest, { params }: { params: { slug: str
 
 export const PUT = async (req: Request, { params }: { params: { slug: string } }) => {
   const body = await req.json();
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session?.user) {
     return NextResponse.json({ message: "User not logged in." }, { status: 401 });

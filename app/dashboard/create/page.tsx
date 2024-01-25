@@ -1,11 +1,12 @@
 import LinkForm from "@/components/form/link";
+import { authOptions } from "@/lib/auth-options";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export const dynamic = "force-dynamic";
 export default async function CreateLinkPage() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     redirect("/");

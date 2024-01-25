@@ -1,8 +1,10 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { User, type NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/db/client";
+import { JWT } from "next-auth/jwt";
+import { AdapterUser } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -24,6 +26,12 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   callbacks: {
+    async jwt({ token, user }: { token: JWT; user: User | AdapterUser }) {
+      if (typeof user !== "undefined") {
+        return user as unknown as JWT;
+      }
+      return token;
+    },
     session: ({ session, user }) => ({
       ...session,
       user: {
