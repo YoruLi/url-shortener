@@ -21,9 +21,19 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET || "",
+
+  events: {
+    signOut: async ({ session, token }) => {
+      const deleteAccount = await prisma.account.delete({
+        where: {
+          id: session.user.id,
+        },
+      });
+    },
+  },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
+
   callbacks: {
     async jwt({ token, user }: { token: JWT; user: User | AdapterUser }) {
       if (typeof user !== "undefined") {
