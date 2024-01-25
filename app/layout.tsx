@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Providers from "@/components/providers";
+
 import Header from "@/components/header";
 import ProgressBar from "@/components/ui/progress-bar";
 import { InitialShow } from "@/components/motion";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
+
 import Footer from "@/components/footer";
+import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth();
+  const session = await getServerSession();
   return (
     <>
       <html lang="en">
