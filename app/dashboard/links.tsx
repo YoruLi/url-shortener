@@ -1,6 +1,5 @@
 import React from "react";
 import { getLinks } from "../actions";
-import { Session } from "next-auth";
 
 import Card from "@/components/ui/card";
 

@@ -37,7 +37,7 @@ export default function Card(props: link) {
         <div className="inline-flex flex-1 gap-3 items-center">
           <span className="text-sm opacity-80">Short url:</span>
           <a
-            href={`https://url-shortener-flax-iota.vercel.app/go/${props.slug}`}
+            href={`https://lym28.vercel.app/go/${props.slug}`}
             target="_blank"
             rel="noreferrer"
             className=" hover:opacity-80"
@@ -46,16 +46,12 @@ export default function Card(props: link) {
           </a>
           <Copy
             className="size-5 opacity-80 hover:opacity-100 hover:scale-105"
-            onClick={() =>
-              copyToClipBoard(`https://url-shortener-flax-iota.vercel.app/go/${props.slug}`)
-            }
+            onClick={() => copyToClipBoard(`https://lym28.vercel.app/go/${props.slug}`)}
           />
         </div>
         <Dropdown>
           <DropdownItem
-            onClick={() =>
-              copyToClipBoard(`https://url-shortener-flax-iota.vercel.app/go/${props.slug}`)
-            }
+            onClick={() => copyToClipBoard(`https://lym28.vercel.app/go/${props.slug}`)}
           >
             Copy short url
           </DropdownItem>
