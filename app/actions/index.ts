@@ -47,6 +47,7 @@ export const deleteLink = async (id: number) => {
 
 export const createLink = async (values: any) => {
   const session = await getServerSession(authOptions);
+
   try {
     if (!session) {
       throw new Error("User not logged in");

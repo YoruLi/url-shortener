@@ -5,6 +5,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/db/client";
 import { JWT } from "next-auth/jwt";
 import { AdapterUser } from "next-auth/adapters";
+import { signOut } from "next-auth/react";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -21,22 +22,50 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-
+  pages: {
+    signIn: "/auth",
+  },
+  events: {
+    async signOut({ session, token }) {
+      console.log(session);
+      console.log(token);
+      console.log(await prisma.account.findMany());
+      if (token.sub) {
+        const existingAccount = await prisma.account.findUnique({
+          where: {
+            provider_userId: {
+              userId: token.sub,
+              provider: "github",
+            },
+          },
+        });
+        console.log(existingAccount);
+        if (existingAccount) {
+          const deletedAccount = await prisma.account.delete({
+            where: {
+              provider_userId: {
+                userId: token.sub,
+                provider: "github",
+              },
+            },
+          });
+          console.log(deletedAccount);
+        }
+      }
+    },
+  },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user, account }) {
-      // Allow OAuth without email verification
+      console.log(user);
+      console.log(account);
+
       if (account?.provider !== "credentials") return true;
 
       return true;
     },
-    async jwt({ token, user }: { token: JWT; user: User | AdapterUser }) {
-      if (typeof user !== "undefined") {
-        return user as unknown as JWT;
-      }
-      return token;
-    },
+
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;

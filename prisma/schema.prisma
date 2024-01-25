@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
     provider  = "postgresql"
-    url       = env("POSTGRES_URL")
-    directUrl = env("POSTGRES_URL_NON_POOLING")
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
@@ -46,7 +46,7 @@ model Account {
     userId            String  @map("userId")
     type              String?
     provider          String
-    providerAccountId String  @map("provider_account_id")
+    providerAccountId String? @map("provider_account_id")
     refresh_token     String? @db.Text
     access_token      String? @db.Text
     expires_at        Int?
@@ -56,7 +56,7 @@ model Account {
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+    @@unique([provider, userId])
     @@map("accounts")
 }
 
