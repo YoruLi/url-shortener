@@ -46,7 +46,7 @@ model Account {
     userId            String  @map("userId")
     type              String?
     provider          String
-    providerAccountId String? @map("provider_account_id")
+    providerAccountId String  @map("provider_account_id")
     refresh_token     String? @db.Text
     access_token      String? @db.Text
     expires_at        Int?
@@ -56,7 +56,7 @@ model Account {
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, userId])
+    @@unique([provider, providerAccountId])
     @@map("accounts")
 }
 

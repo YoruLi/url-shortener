@@ -33,9 +33,10 @@ export const authOptions: NextAuthOptions = {
       if (token.sub) {
         const existingAccount = await prisma.account.findUnique({
           where: {
-            provider_userId: {
-              userId: token.sub,
+            userId: token.sub,
+            provider_providerAccountId: {
               provider: "github",
+              providerAccountId: "111911846", // Debes proporcionar un valor aquí, incluso si es una cadena vacía si es requerido
             },
           },
         });
@@ -43,9 +44,10 @@ export const authOptions: NextAuthOptions = {
         if (existingAccount) {
           const deletedAccount = await prisma.account.delete({
             where: {
-              provider_userId: {
-                userId: token.sub,
+              userId: token.sub,
+              provider_providerAccountId: {
                 provider: "github",
+                providerAccountId: "111911846", // Debes proporcionar un valor aquí, incluso si es una cadena vacía si es requerido
               },
             },
           });
