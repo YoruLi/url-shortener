@@ -14,7 +14,6 @@ export const authOptions: NextAuthOptions = {
       profile(profile) {
         return {
           id: profile.id.toString(),
-          name: profile.name || profile.login,
           username: profile.login,
           email: profile.email,
           image: profile.avatar_url,
@@ -36,8 +35,6 @@ export const authOptions: NextAuthOptions = {
       ...session,
       user: {
         ...session.user,
-        id: user.id,
-        username: user.username,
       },
     }),
   },
