@@ -23,10 +23,12 @@ model User {
 model link {
     id        Int      @id @default(autoincrement())
     url       String   @db.Text
-    slug      String   @unique @map("slug") @db.Text
+    slug      String   @db.Text
     createdAt DateTime @default(now())
     createdBy User?    @relation(fields: [creatorId], references: [id])
     creatorId String
+
+    @@unique([slug])
 }
 
 model Session {

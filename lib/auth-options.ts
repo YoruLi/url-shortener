@@ -34,7 +34,6 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
-
   callbacks: {
     async jwt({ token, user }: { token: JWT; user: User | AdapterUser }) {
       if (typeof user !== "undefined") {
@@ -46,6 +45,7 @@ export const authOptions: NextAuthOptions = {
       ...session,
       user: {
         ...session.user,
+        id: user.id,
       },
     }),
   },
