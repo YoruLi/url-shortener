@@ -51,7 +51,7 @@ export const createLink = async (values: any) => {
     if (!session) {
       throw new Error("User not logged in");
     }
-    const checkSlug = await prisma.link.findFirst({
+    const checkSlug = await prisma.link.findUnique({
       where: {
         slug: values.slug || "",
       },

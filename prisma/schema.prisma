@@ -23,7 +23,7 @@ model User {
 model link {
     id        Int      @id @default(autoincrement())
     url       String   @db.Text
-    slug      String   @unique
+    slug      String   @unique @map("slug") @db.Text
     createdAt DateTime @default(now())
     createdBy User?    @relation(fields: [creatorId], references: [id])
     creatorId String
@@ -31,7 +31,7 @@ model link {
 
 model Session {
     id           String   @id @default(cuid())
-    sessionToken String   @unique
+    sessionToken String   @unique @map("session_token") @db.Text
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
