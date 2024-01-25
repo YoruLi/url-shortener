@@ -23,11 +23,10 @@ export const authOptions: NextAuthOptions = {
   ],
 
   events: {
-    signOut: async ({}) => {
-      const session = await getServerSession(authOptions);
-      const deleteAccount = await prisma.account.delete({
+    signOut: async ({ session }) => {
+      await prisma.account.delete({
         where: {
-          id: session?.user?.id,
+          id: session.user.id,
         },
       });
     },
